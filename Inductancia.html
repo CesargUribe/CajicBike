@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .coil {
+    width: 100px;
+    height: 200px;
+    background-color: gray;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .pointer {
+    width: 4px;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+    transform-origin: bottom center;
+    transition: transform 0.5s;
+  }
+</style>
+<title>Simulación de FEM Inducida</title>
+</head>
+<body>
+<div class="coil">
+  <div class="pointer" id="pointer"></div>
+</div>
+<div>
+  <p>Magnitud de la FEM inducida promedio: <span id="femResult">Calculando...</span> V</p>
+</div>
+<script>
+  const L = 0.003;  // Inductancia en henrios
+  const deltaI = 1.5 - 0.2;  // Cambio en corriente en amperios
+  const deltaT = 0.2;  // Cambio en tiempo en segundos
+
+  const fem = -L * (deltaI / deltaT);  // Cálculo de la FEM inducida
+
+  const pointer = document.getElementById("pointer");
+  const femResult = document.getElementById("femResult");
+
+  // Calcula la rotación en grados del puntero basado en la magnitud de la FEM
+  const rotationDegrees = (fem * 100);  // Multiplicado por 100 para mejorar la visualización
+
+  // Aplica la rotación al puntero usando transform: rotate
+  pointer.style.transform = `rotate(${rotationDegrees}deg)`;
+
+  femResult.textContent = fem.toFixed(4);  // Mostrar resultado en el elemento HTML
+</script>
+</body>
+</html>
