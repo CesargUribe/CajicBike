@@ -1,108 +1,55 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CajicBike - Venta de Bicicletas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-        }
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav li {
-            display: inline;
-            margin-right: 20px;
-        }
-        .banner img {
-            width: 100%;
-            max-height: 400px;
-        }
-        .productos {
-            text-align: center;
-            padding: 2rem 0;
-        }
-        .producto {
-            display: inline-block;
-            margin: 0 20px;
-            text-align: center;
-        }
-        .producto img {
-            width: 100%;
-            max-height: 200px;
-        }
-        .contacto {
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 2rem 0;
-        }
-        .boton {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  .coil {
+    width: 100px;
+    height: 200px;
+    background-color: gray;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .pointer {
+    width: 4px;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    left: 48px;
+    transform-origin: bottom center;
+    transition: transform 0.5s;
+  }
+</style>
+<title>Simulación de FEM Inducida</title>
 </head>
 <body>
-    <header>
-        <h1>CajicBike</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Productos</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <section class="banner">
-        <img src="banner.jpg" alt="Bicicletas en venta">
-    </section>
-    
-    <section class="productos">
-        <h2>Productos Destacados</h2>
-        <div class="producto">
-            <img src="bicicleta1.jpg" alt="Bicicletas gw ">
-            <h3>Bicicleta de Montaña</h3>
-            <p>¡Explora la naturaleza con nuestra bicicleta de montaña de alta calidad!</p>
-            <a href="#" class="boton">Ver Detalles</a>
-        </div>
-        <div class="producto">
-            <img src="bicicleta2.jpg" alt="Bicicleta 2">
-            <h3>Bicicleta de Ciudad</h3>
-            <p>La elección perfecta para desplazarte cómodamente por la ciudad.</p>
-            <a href="#" class="boton">Ver Detalles</a>
-        </div>
-    </section>
-    
-    <section class="contacto">
-        <h2>Contacto</h2>
-        <p>¡Contáctanos para obtener más información sobre nuestros productos!</p>
-        <a href="mailto:info@CajicBike.com" class="boton">Enviar Correo</a>
-    </section>
-    
-    <footer>
-        <p>&copy; 2023 CajicBike - Todos los derechos reservados</p>
-    </footer>
+<div class="coil">
+  <div class="pointer" id="pointer"></div>
+</div>
+<div>
+  <p>Magnitud de la FEM inducida promedio: <span id="femResult">Calculando...</span> V</p>
+</div>
+<script>
+  const L = 0.003;  // Inductancia en henrios
+  const deltaI = 1.5 - 0.2;  // Cambio en corriente en amperios
+  const deltaT = 0.2;  // Cambio en tiempo en segundos
+
+  const fem = -L * (deltaI / deltaT);  // Cálculo de la FEM inducida
+
+  const pointer = document.getElementById("pointer");
+  const femResult = document.getElementById("femResult");
+
+  // Calcula la rotación en grados del puntero basado en la magnitud de la FEM
+  const rotationDegrees = (fem * 100);  // Multiplicado por 100 para mejorar la visualización
+
+  // Aplica la rotación al puntero usando transform: rotate
+  pointer.style.transform = `rotate(${rotationDegrees}deg)`;
+
+  femResult.textContent = fem.toFixed(4);  // Mostrar resultado en el elemento HTML
+</script>
 </body>
 </html>
